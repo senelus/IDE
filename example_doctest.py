@@ -20,6 +20,8 @@ def count_vowels(word):
             total_vowels += 1
     return total_vowels
 
+
 if __name__ == "__main__":
     import example_doctest
+
     example_doctest.testmod()
