@@ -1,6 +1,6 @@
 from PIL import Image
 import numpy as np
-
+import cProfile as profile
 
 def convert_image_to_mosaic(image, size, gradation_step):
     for x in range(0, len(image), size):
@@ -16,15 +16,18 @@ def get_average_brightness(block, size, gradation_step):
 
 
 def main():
+    pr = profile.Profile()
+    pr.disable()
+    pr.enable()
     image_file = Image.open("scale1200.jpg")
     block_size = 10
     gradations_count = 50
     image = np.array(image_file)
     gradation_step = 255 // gradations_count
-
     res = Image.fromarray(convert_image_to_mosaic(image, block_size, gradation_step))
     res.save("res_new.jpg")
-
+    pr.disable()
+    pr.dump_stats('profile_with_file_name.pstat')
 
 if __name__ == '__main__':
     main()
